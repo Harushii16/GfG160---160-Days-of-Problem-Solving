@@ -1,0 +1,18 @@
+class Solution {
+    public int getSecondLargest(int[] arr) {
+        // code here
+  
+    Arrays.sort(arr);
+    int largest=arr[arr.length-1];
+    int secondlargestindex=arr.length-1;
+    int secondlargest=-1;
+    while(secondlargestindex>=0){
+        if(arr[secondlargestindex]!=largest){
+            secondlargest=arr[secondlargestindex];
+            break;
+        }
+        secondlargestindex--;
+    }
+    return secondlargest;
+}
+    }
