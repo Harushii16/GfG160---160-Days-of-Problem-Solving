@@ -1,0 +1,25 @@
+
+
+// User function Template for Java
+
+class Solution {
+    void pushZerosToEnd(int[] arr) {
+        // code here
+       int index=0;
+       int nonzeroindex=0;
+       while(index<arr.length){
+           if(arr[index]==0){
+               while(nonzeroindex<arr.length && arr[nonzeroindex]==0){
+                   nonzeroindex++;
+               }
+                if(nonzeroindex<arr.length){
+               arr[index]=arr[nonzeroindex];
+               arr[nonzeroindex]=0;
+           }
+           }
+          
+           index++;
+           nonzeroindex++;
+       }
+    }
+}
