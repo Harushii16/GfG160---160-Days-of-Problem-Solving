@@ -1,0 +1,38 @@
+class Solution {
+    public int maxCircularSum(int arr[]) {
+        // code here
+        int n=arr.length;
+       int maxnormal=kadane(arr);
+       if(maxnormal<0) return maxnormal;
+       int totalsum=0;
+       for(int i=0;i<n;i++){
+           totalsum+=arr[i];
+       }
+       int minsub=kadanemin(arr);
+       int maxcircular=totalsum-minsub;
+       return Math.max(maxnormal,maxcircular);
+    }
+    
+    public int kadane(int[] arr){
+        int n=arr.length;
+        int maxendhere=arr[0];
+        int maxsofar=arr[0];
+        for(int i=1;i<n;i++){
+            maxendhere=Math.max(maxendhere+arr[i],arr[i]);
+            maxsofar=Math.max(maxsofar,maxendhere);
+        }
+        return maxsofar;
+    }
+    
+    public int kadanemin(int[] arr){
+        int n=arr.length;
+        int minendhere=arr[0];
+        int minsofar=arr[0];
+        for(int i=1;i<n;i++){
+            minendhere=Math.min(minendhere+arr[i],arr[i]);
+            minsofar=Math.min(minsofar,minendhere);
+        }
+        return minsofar;
+    }
+    
+}
