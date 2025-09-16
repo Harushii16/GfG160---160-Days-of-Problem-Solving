@@ -1,0 +1,25 @@
+class Solution {
+    public int peakElement(int[] arr) {
+        // code here
+        int n=arr.length;
+        int low=0;
+        int high=n-1;
+        
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            
+            boolean leftcheck=(mid==0  ||  arr[mid]>arr[mid-1]);
+            boolean rightcheck=(mid==n-1  ||  arr[mid]>arr[mid+1]);
+            
+            if(leftcheck  && rightcheck) return mid;
+            
+            if(mid<n-1  &&  arr[mid]<arr[mid+1]){
+                low=mid+1;
+            }else{
+                high=mid-1;;
+            }
+        }
+        
+        return -1;
+    }
+}
