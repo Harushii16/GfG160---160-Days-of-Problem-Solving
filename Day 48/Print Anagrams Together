@@ -1,0 +1,18 @@
+class Solution {
+    public ArrayList<ArrayList<String>> anagrams(String[] arr) {
+        // code here
+        Map<String,ArrayList<String>> mpp=new LinkedHashMap<>();
+        
+        for(String word:arr){
+            char chars[]=word.toCharArray();
+            Arrays.sort(chars);
+            String key=new String(chars);
+            
+            mpp.putIfAbsent(key,new ArrayList<>());
+            mpp.get(key).add(word);
+        }
+        
+        
+        return new ArrayList<>(mpp.values());
+    }
+}
