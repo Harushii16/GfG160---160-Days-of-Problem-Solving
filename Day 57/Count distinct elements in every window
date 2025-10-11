@@ -1,0 +1,22 @@
+class Solution {
+    ArrayList<Integer> countDistinct(int arr[], int k) {
+        // code here
+        ArrayList<Integer> result=new ArrayList<>();
+        HashMap<Integer,Integer> mpp=new HashMap<>();
+        
+        for(int i=0;i<k;i++){
+            mpp.put(arr[i],mpp.getOrDefault(arr[i],0)+1);
+        }
+        result.add(mpp.size());
+        
+        for(int i=k;i<arr.length;i++){
+            int out=arr[i-k];
+            mpp.put(out,mpp.get(out)-1);
+            if(mpp.get(out)==0) mpp.remove(out);
+            int in=arr[i];
+            mpp.put(in,mpp.getOrDefault(in,0)+1);
+            result.add(mpp.size());
+        }
+        return result;
+    }
+}
