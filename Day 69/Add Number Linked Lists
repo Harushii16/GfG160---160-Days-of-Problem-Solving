@@ -1,0 +1,61 @@
+/*
+class Node {
+    int data;
+    Node next;
+
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}
+*/
+
+class Solution {
+    public Node removeleadingzeros(Node head){
+        while(head!=null && head.data==0){
+            head=head.next;
+        }
+        if(head==null)return new Node(0);
+        return head;
+    }
+    public Node reverse(Node head){
+        Node prev=null;
+        Node curr=head;
+        while(curr!=null){
+            Node next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
+    public Node addTwoLists(Node head1, Node head2) {
+        head1=removeleadingzeros(head1);
+        head2=removeleadingzeros(head2);
+        // code here
+        head1=reverse(head1);
+        head2=reverse(head2);
+        Node temp1=head1;
+        Node temp2=head2;
+        Node dummyhead=new Node(0);
+        Node current=dummyhead;
+        int carry=0;
+        
+        while(temp1!=null || temp2!=null){
+            int x=(temp1!=null)?temp1.data:0;
+            int y=(temp2!=null)?temp2.data:0;
+            int sum=carry+x+y;
+            carry=sum/10;
+            current.next=new Node(sum%10);
+            current=current.next;
+            if(temp1!=null)temp1=temp1.next;
+            if(temp2!=null)temp2=temp2.next;
+            
+        }
+        
+        if(carry>0){
+            current.next=new Node(carry);
+        }
+        return reverse(dummyhead.next);
+    }
+}
