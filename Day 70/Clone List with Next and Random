@@ -1,0 +1,57 @@
+/*
+class Node {
+    int data;
+    Node next;
+    Node random;
+
+    Node(int x) {
+        data = x;
+        next = null;
+        random = null;
+    }
+}
+*/
+class Solution {
+    void insertcopyinbetween(Node head){
+        Node temp=head;
+        while(temp!=null){
+            Node copy=new Node(temp.data);
+            copy.next=temp.next;
+            temp.next=copy;
+            temp=temp.next.next;
+        }
+    }
+    void connectrandompointers(Node head){
+        Node temp=head;
+        while(temp!=null){
+            Node copynode=temp.next;
+            if(temp.random!=null){
+                copynode.random=temp.random.next;
+                
+            }else{
+                copynode.random=null;
+            }
+            temp=temp.next.next;
+        }
+    }
+    
+    Node getdeepcopylist(Node head){
+        Node temp=head;
+        Node dummyNode=new Node(-1);
+        Node res=dummyNode;
+        while(temp!=null){
+            res.next=temp.next;
+            res=res.next;
+            temp.next=temp.next.next;
+            temp=temp.next;
+        }
+        return dummyNode.next;
+    }
+    public Node cloneLinkedList(Node head) {
+        // code here
+        if(head==null) return null;
+        insertcopyinbetween(head);
+        connectrandompointers(head);
+        return getdeepcopylist(head);
+    }
+}
