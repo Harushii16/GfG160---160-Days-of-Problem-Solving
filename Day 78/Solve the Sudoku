@@ -1,0 +1,50 @@
+class Solution {
+    boolean rowused[][]=new boolean[9][10];
+    boolean colused[][]=new boolean[9][10];
+    boolean boxused[][]=new boolean[9][10];
+    public void solveSudoku(int[][] mat) {
+        // code here
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                int num=mat[i][j];
+                if(num!=0){
+                    int box=(i/3)*3+(j/3);
+                    rowused[i][num]=true;
+                    colused[j][num]=true;
+                    boxused[box][num]=true;
+                }
+            }
+        }
+        solve(mat);
+    }
+    private boolean solve(int[][] board){
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(board[i][j]==0){
+                    for(int num=1;num<=9;num++){
+                        if(isSafe(board,i,j,num)){
+                            int box=(i/3)*3+(j/3);
+                            board[i][j]=num;
+                            rowused[i][num]=colused[j][num]=boxused[box][num]=true;
+                            if(solve(board)){
+                                 return true;
+                             }
+                             board[i][j]=0;
+                            rowused[i][num]=colused[j][num]=boxused[box][num]=false;
+                             
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    
+    private boolean isSafe(int[][] board,int row,int col,int num){
+        int box=(row/3)*3+(col/3);
+        return !rowused[row][num] && !colused[col][num] && !boxused[box][num];
+        
+    }
+}
