@@ -1,0 +1,36 @@
+import java.util.*;
+/*
+class Node {
+    int data;
+    Node left, right;
+
+    Node(int val) {
+        data = val;
+        left = right = null;
+    }
+}
+*/
+
+class Solution {
+    static int preindex=0;
+    public static Node buildTree(int inorder[], int preorder[]) {
+        // code here
+        HashMap<Integer,Integer> inmap=new HashMap<>();
+        for(int i=0;i<inorder.length;i++){
+            inmap.put(inorder[i],i);
+        }
+        
+        preindex=0;
+        return build(inorder,preorder,0,inorder.length-1,inmap);
+    }
+    
+    private static Node build(int inorder[],int preorder[],int instart,int inEnd,HashMap<Integer,Integer> inmap){
+        if(instart>inEnd) return null;
+        int rootval=preorder[preindex++];
+        Node root=new Node(rootval);
+        int index=inmap.get(rootval);
+        root.left=build(inorder,preorder,instart,index-1,inmap);
+        root.right=build(inorder,preorder,index+1,inEnd,inmap);
+        return root;
+    }
+}
