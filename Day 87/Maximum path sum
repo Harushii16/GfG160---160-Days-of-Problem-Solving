@@ -1,0 +1,28 @@
+/*
+class Node{
+    int data;
+    Node left, right;
+    Node(int d){
+        data=d;
+        left=right=null;
+    }
+}
+*/
+
+class Solution {
+    int maxsum;
+    int findMaxSum(Node root) {
+        // code here
+        maxsum=Integer.MIN_VALUE;
+        helper(root);
+        return maxsum;
+    }
+    
+    int helper(Node node){
+if(node==null) return 0;
+int left=Math.max(0,helper(node.left));
+int right=Math.max(0,helper(node.right));
+maxsum=Math.max(maxsum,left+right+node.data);
+return node.data+Math.max(left,right);
+    }
+}
