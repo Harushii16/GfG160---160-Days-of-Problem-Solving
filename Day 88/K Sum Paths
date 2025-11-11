@@ -1,0 +1,32 @@
+/*
+class Node {
+    int data;
+    Node left;
+    Node right;
+
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+*/
+
+class Solution {
+    public int countAllPaths(Node root, int k) {
+        // code here
+        HashMap<Long,Integer> prefixsum=new HashMap<>();
+        prefixsum.put(0L,1);
+        return dfs(root,0,k,prefixsum);
+    }
+    private int dfs(Node node,long currsum,int k,HashMap<Long,Integer> prefixsum){
+        if(node==null)return 0;
+        currsum+=node.data;
+        int count=prefixsum.getOrDefault(currsum-k,0);
+        prefixsum.put(currsum,prefixsum.getOrDefault(currsum,0)+1);
+        count+=dfs(node.left,currsum,k,prefixsum);
+        count+=dfs(node.right,currsum,k,prefixsum);
+        prefixsum.put(currsum,prefixsum.get(currsum)-1);
+        return count;
+    }
+}
