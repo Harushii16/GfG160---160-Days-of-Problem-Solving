@@ -1,0 +1,40 @@
+/*
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int d) {
+        data = d;
+        left = right = null;
+    }
+}
+*/
+class Solution {
+    boolean findTarget(Node root, int target) {
+        // Write your code here
+        List<Integer> sorted=new ArrayList<>();
+        inorder(root,sorted);
+        int left=0;
+        int right=sorted.size()-1;
+        while(left<right){
+            int sum=sorted.get(left)+sorted.get(right);
+            if(sum==target){
+                return true;
+            }else if(sum<target){
+                left++;
+            }else{
+                right--;
+            }
+        }
+        return false;
+        
+    }
+    
+    
+    private void inorder(Node root,List<Integer> list){
+        if(root==null) return;
+        inorder(root.left,list);
+        list.add(root.data);
+        inorder(root.right,list);
+    }
+}
