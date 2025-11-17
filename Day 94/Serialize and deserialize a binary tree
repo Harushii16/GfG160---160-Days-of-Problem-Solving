@@ -1,0 +1,65 @@
+/*
+class Node {
+    int data;
+    Node left;
+    Node right;
+
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}*/
+
+class Solution {
+    public ArrayList<Integer> serialize(Node root) {
+        // code here
+        ArrayList<Integer> result=new ArrayList<>();
+        if(root==null) return result;
+        Queue<Node> q=new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            Node curr=q.poll();
+            if(curr!=null){
+                result.add(curr.data);
+                q.add(curr.left);
+                q.add(curr.right);
+            }else{
+                result.add(null);
+            }
+        }
+        
+        int i=result.size()-1;
+        while(i>0 && result.get(i)==null){
+            result.remove(i--);
+            
+        }
+        return result;
+        
+    }
+
+    public Node deSerialize(ArrayList<Integer> arr) {
+        if(arr==null || arr.size()==0) return null;
+        Node root=new Node(arr.get(0));
+         Queue<Node> q=new LinkedList<>();
+        q.add(root);
+        int i=1;
+        while(i<arr.size()){
+            Node parent=q.poll();
+            if(parent==null) continue;
+            if(arr.get(i)!=null){
+                parent.left=new Node(arr.get(i));
+                q.add(parent.left);
+            }
+            i++;
+            
+            if(i<arr.size() && arr.get(i)!=null){
+                parent.right=new Node(arr.get(i));
+                q.add(parent.right);
+            }
+            i++;
+        }
+        return root;
+        // code here
+    }
+};
