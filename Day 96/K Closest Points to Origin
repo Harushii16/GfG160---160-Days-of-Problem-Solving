@@ -1,0 +1,29 @@
+class Solution {
+    public ArrayList<ArrayList<Integer>> kClosest(int[][] points, int k) {
+        // code here
+        PriorityQueue<int[]> pq=new PriorityQueue<>(
+        (a,b) -> b[0]-a[0]
+    );
+    
+    for(int[] p:points){
+        int x=p[0];
+        int y=p[1];
+        int dist=x*x + y*y;
+        pq.add(new int[]{dist,x,y});
+        if(pq.size()>k){
+            pq.poll();
+        }
+    }
+    
+    ArrayList<ArrayList<Integer>> ans=new ArrayList<>();
+    while(!pq.isEmpty()){
+        int[] curr=pq.poll();
+        ArrayList<Integer> temp=new ArrayList<>();
+        temp.add(curr[1]);
+        temp.add(curr[2]);
+        ans.add(temp);
+    }
+    
+    return ans;
+    }
+}
