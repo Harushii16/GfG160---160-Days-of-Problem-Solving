@@ -1,0 +1,21 @@
+Longest Bounded-Difference Subarray
+
+Difficulty: MediumAccuracy: 58.27%Submissions: 27K+Points: 4
+Given an array of positive integers arr[] and a non-negative integer x, the task is to find the longest sub-array where the absolute difference between any two elements is not greater than x.
+If multiple such subarrays exist, return the one that starts at the smallest index.
+
+Examples:
+
+Input: arr[] = [8, 4, 5, 6, 7], x = 3 
+Output: [4, 5, 6, 7] 
+Explanation: The sub-array described by index [1..4], i.e. [4, 5, 6, 7]
+contains no two elements whose absolute difference is greater than 3.
+Input: arr[] = [1, 10, 12, 13, 14], x = 2 
+Output: [12, 13, 14] 
+Explanation: The sub-array described by index [2..4], i.e. [12, 13, 14]
+contains no two elements whose absolute difference is greater than 2. 
+Constraints:
+1 ≤ arr.size() ≤ 105
+1 ≤ arr[i] ≤ 109
+0 ≤ x ≤ 109
+
