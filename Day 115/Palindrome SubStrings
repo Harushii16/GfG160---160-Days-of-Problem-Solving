@@ -1,0 +1,27 @@
+class Solution {
+    public int countPS(String s) {
+        // code here
+        int n=s.length();
+        int count=0;
+        for(int center=0;center<n;center++){
+            count+=expand(s,center,center);
+            count+=expand(s,center,center+1);
+        }
+        
+        return count;
+    }
+    
+    
+    private int expand(String s,int left,int right){
+        int cnt=0;
+        int n=s.length();
+        while(left>=0  && right<n  && s.charAt(left)==s.charAt(right)){
+            if(right-left+1>=2)
+                cnt++;
+                left--;
+                right++;
+            }
+            
+            return cnt;
+        }
+    }
