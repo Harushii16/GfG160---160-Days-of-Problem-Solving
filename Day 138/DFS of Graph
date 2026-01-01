@@ -1,0 +1,20 @@
+class Solution {
+    public ArrayList<Integer> dfs(ArrayList<ArrayList<Integer>> adj) {
+        // code here
+        ArrayList<Integer> res=new ArrayList<>();
+        boolean[] visited=new boolean[adj.size()];
+        dfshelper(0,adj,visited,res);
+        return res;
+        
+    }
+    
+    private void dfshelper(int node,ArrayList<ArrayList<Integer>> adj,boolean[] visited,ArrayList<Integer> res){
+        visited[node]=true;
+        res.add(node);
+        for(int neigh:adj.get(node)){
+            if(!visited[neigh]){
+                dfshelper(neigh,adj,visited,res);
+            }
+        }
+    }
+}
