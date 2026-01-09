@@ -1,0 +1,69 @@
+class Solution {
+            static int timer;
+
+    static ArrayList<Integer> articulationPoints(int V, int[][] edges) {
+        // code here
+        @SuppressWarnings("unchecked")
+            List<Integer>[] graph=new ArrayList[V];
+            for(int i=0;i<V;i++){
+                graph[i]=new ArrayList<>();
+            }
+            
+            for(int[] e:edges){
+                int u=e[0];
+                int v=e[1];
+                graph[u].add(v);
+                graph[v].add(u);
+            }
+            
+            boolean[] visited=new boolean[V];
+            int[] disc=new int[V];
+            int[] low=new int[V];
+            int[] parent=new int[V];
+            boolean[] isAP=new boolean[V];
+            
+            Arrays.fill(parent,-1);
+            timer=0;
+            for(int i=0;i<V;i++){
+                if(!visited[i]){
+                    dfs(i,graph,visited,disc,low,parent,isAP);
+                }
+            }
+            
+            
+            ArrayList<Integer> ans=new ArrayList<>();
+            for(int i=0;i<V;i++){
+                if(isAP[i]) ans.add(i);
+            }
+            
+            if(ans.size()==0){
+                ans.add(-1);
+            }
+            
+            return ans;
+        }
+        
+        static void dfs(int u,List<Integer>[] graph,boolean[] visited,int[] disc,int[] low,int[] parent,boolean[] isAP){
+            visited[u]=true;
+            disc[u]=low[u]=++timer;
+            int children=0;
+            for(int v:graph[u]){
+                if(!visited[v]){
+                    children++;
+                    parent[v]=u;
+                    dfs(v,graph,visited,disc,low,parent,isAP);
+                    low[u]=Math.min(low[u],low[v]);
+                    if(parent[u]==-1 && children>1){
+                        isAP[u]=true;
+                    }
+                    
+                    if(parent[u]!=-1 && low[v]>=disc[u]){
+                        isAP[u]=true;
+                    }
+                }
+                else if(v!=parent[u]){
+                    low[u]=Math.min(low[u],disc[v]);
+                }
+            }
+        }
+    }
