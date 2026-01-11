@@ -1,0 +1,46 @@
+class Solution {
+    public int[] dijkstra(int V, int[][] edges, int src) {
+        // code here
+        List<List<int[]>> graph=new ArrayList<>();
+        for(int i=0;i<V;i++){
+            graph.add(new ArrayList<>());
+        }
+        
+        for(int[] e:edges){
+            int u=e[0];
+            int v=e[1];
+            int w=e[2];
+            graph.get(u).add(new int[]{v,w});
+            graph.get(v).add(new int[]{u,w});
+        }
+        
+        int[] dist=new int[V];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        dist[src]=0;
+        
+        PriorityQueue<int[]> pq=new PriorityQueue<>(
+            (a,b)->a[0]-b[0]
+            );
+            pq.offer(new int[]{0,src});
+            
+            while(!pq.isEmpty()){
+                int[] curr=pq.poll();
+                int currDist=curr[0];
+                int node=curr[1];
+                
+                if(currDist>dist[node])continue;
+                for(int[] neigh:graph.get(node)){
+                    int nextNode=neigh[0];
+                    int weight=neigh[1];
+                    int newDist=currDist+weight;
+                    
+                    if(newDist<dist[nextNode]){
+                        dist[nextNode]=newDist;
+                        pq.offer(new int[]{newDist,nextNode});
+                    }
+                }
+            }
+            
+            return dist;
+    }
+}
