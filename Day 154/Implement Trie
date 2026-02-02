@@ -1,0 +1,45 @@
+// User function Template for Java
+class Trie {
+
+    class Node{
+        Node[] c=new Node[26];
+        boolean end;
+    }
+    Node root=new Node();
+    public Trie() {
+        // Implement Trie
+    }
+
+    // Insert a word into the Trie
+    public void insert(String word) {
+        Node n=root;
+        for(char ch:word.toCharArray()){
+            int i=ch-'a';
+            if(n.c[i]==null) n.c[i]=new Node();
+            n=n.c[i];
+        }
+        n.end=true;
+    }
+
+    // Search for a word in the Trie
+    public boolean search(String word) {
+        Node n=root;
+        for(char ch:word.toCharArray()){
+            int i=ch-'a';
+            if(n.c[i]==null) return false;
+            n=n.c[i];
+        }
+        return n.end;
+    }
+
+    // Check if a prefix exists in the Trie
+    public boolean isPrefix(String word) {
+        Node n=root;
+        for(char ch:word.toCharArray()){
+            int i=ch-'a';
+            if(n.c[i]==null) return false;
+            n=n.c[i];
+        }
+        return true;
+    }
+}
