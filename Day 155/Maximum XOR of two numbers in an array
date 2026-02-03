@@ -1,0 +1,37 @@
+// User function Template for Java
+
+class Solution {
+    class Node{
+        Node[] next=new Node[2];
+    }
+    Node root=new Node();
+    void insert(int n){
+        Node cur=root;
+        for(int i=31;i>=0;i--){
+            int b=(n>>i)&1;
+            if(cur.next[b]==null)cur.next[b]=new Node();
+            cur=cur.next[b];
+        }
+    }
+    int findMax(int n){
+        Node cur=root;
+        int ans=0;
+        for(int i=31;i>=0;i--){
+            int b=(n>>i)&1;
+            if(cur.next[1-b]!=null){
+                ans |=(1<<i);
+                cur=cur.next[1-b];
+            }else{
+                cur=cur.next[b];
+            }
+        }
+        return ans;
+    }
+    public int maxXor(int[] arr) {
+        // code here
+        for(int n:arr) insert(n);
+        int res=0;
+        for(int n:arr)res=Math.max(res,findMax(n));
+        return res;
+    }
+}
